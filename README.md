@@ -1,8 +1,5 @@
 # custom_contact_selection
 
-A new Flutter project.
+A simple flutter solution to fetch all contacts from iOS and Android and populate them in a custom selectable ListTile list.
 
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+## Some screenshots
