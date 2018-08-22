@@ -74,11 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   CustomContact _contact = _uiCustomContacts[index];
                   var _phonesList = _contact.contact.phones.toList();
 
-                  return Column(
-                    children: <Widget>[
-                      _buildListTile(_contact, _phonesList),
-                    ],
-                  );
+                  return _buildListTile(_contact, _phonesList);
                 },
               ),
             )
