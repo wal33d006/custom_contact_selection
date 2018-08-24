@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:simple_permissions/simple_permissions.dart';
@@ -54,10 +56,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getContactsPermission();
-    refreshContacts();
+    getContactsPermission().then((granted) {
+      if (granted) {
+        refreshContacts();
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: const Text('Oops!'),
+                content: const Text('Looks like permission to read contacts is not granted.'),
+                actions: <Widget>[
+                  FlatButton(
+                    child: const Text('OK'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+        );
+      }
+    });
   }
 
   @override
@@ -164,9 +182,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void getContactsPermission() {
-    SimplePermissions.requestPermission(Permission.ReadContacts);
-  }
+  Future<bool> getContactsPermission() =>
+      SimplePermissions.requestPermission(Permission.ReadContacts);
 }
 
 class CustomContact {
